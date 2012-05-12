@@ -1,0 +1,27 @@
+@(userForm: Form[doma.user.User])
+
+@import views.html.bootstrapField
+@import views.html.helper.FieldConstructor
+@implicitField = @{ FieldConstructor(bootstrapField.f) }
+
+@main("ユーザー管理") {
+<div class="container">
+    <div class="page-header">
+        <h1>ユーザー管理<small> - 更新</small></h1>
+    </div>
+    @if(userForm.hasErrors) {
+    <div class="alert alert-block">
+        <a class="close" data-dismiss="alert">&times;</a>
+        <h4 class="alert-heading"><strong>Oops</strong> Please fix all errors</h4>
+    </div>
+    }
+    @helper.form(action = routes.Application.update, 'id -> "userForm", 'class -> "well form-horizontal") {
+        @helper.inputText(userForm("id"), args = 'readonly -> "readonly")
+        @helper.inputText(userForm("email"))
+        @helper.inputText(userForm("fullname"))
+        <input type="hidden" name="password" id="password" value='@userForm("password").value()'>
+        <button type="submit" class="btn">update</button>
+        <a href="@routes.Application.index()" class="btn">cancel</a>
+    }
+</div>
+}

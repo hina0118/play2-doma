@@ -1,6 +1,11 @@
-*.class
-
-# Package Files #
-*.jar
-*.war
-*.ear
+.idea
+.idea_modules
+project/project
+project/target
+target
+sample/apt_generated
+sample/logs
+sample/project/project
+sample/project/target
+sample/target
+sample/sample.iml

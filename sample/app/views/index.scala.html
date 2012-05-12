@@ -1,0 +1,53 @@
+@(userForm: Form[doma.user.User], users: List[doma.user.User])
+
+@import views.html.bootstrapField
+@import views.html.helper.FieldConstructor
+@implicitField = @{ FieldConstructor(bootstrapField.f) }
+
+@main("ユーザー管理") {
+<div class="container">
+    <div class="page-header">
+        <h1>ユーザー管理<small> - 追加、削除</small></h1>
+    </div>
+    @if(userForm.hasErrors) {
+    <div class="alert alert-block">
+        <a class="close" data-dismiss="alert">&times;</a>
+        <h4 class="alert-heading"><strong>Oops</strong> Please fix all errors</h4>
+    </div>
+    }
+    @helper.form(action = routes.Application.create, 'id -> "userForm", 'class -> "well form-horizontal") {
+        @helper.inputText(userForm("email"))
+        @helper.inputPassword(userForm("password"))
+        @helper.inputText(userForm("fullname"))
+        <input type="hidden" name="admin" id="admin" value="false">
+        <button type="submit" class="btn">insert</button>
+    }
+    <hr>
+    <table class="table table-condensed">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>email</th>
+            <th>password</th>
+            <th>fullname</th>
+            <th>admin</th>
+            <th>update</th>
+            <th>delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        @for(user <- users) {
+        <tr>
+            <td>@user.getId()</td>
+            <td>@(user.getEmail() + "/" + user.getEmail().getDomainName())</td>
+            <td>@user.getPassword().getMaskedPassword()</td>
+            <td>@user.getFullname()</td>
+            <td>@user.getAdmin()</td>
+            <td><a href="@routes.Application.view(user.getId())" class="btn btn-mini">view</a></td>
+            <td><a href="@routes.Application.delete(user.getId())" class="btn btn-mini">delete</a></td>
+        </tr>
+        }
+        </tbody>
+    </table>
+</div>
+}
