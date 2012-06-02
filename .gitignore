@@ -3,7 +3,7 @@
 project/project
 project/target
 target
-sample/apt_generated
+sample/.apt_generated
 sample/logs
 sample/project/project
 sample/project/target

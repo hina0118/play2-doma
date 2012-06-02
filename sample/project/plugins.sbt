@@ -7,6 +7,6 @@ resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/release
 // Use the Play sbt plugin for Play projects
 addSbtPlugin("play" % "sbt-plugin" % "2.0.1")
 
-resolvers += "Local Maven Repository" at "file:///C:/project/maven-repo/snapshots"
+resolvers += "Local Maven Repository" at "file:///C:/project/maven-repo/release"
 
-addSbtPlugin("sbt-doma-plugin" % "sbt-doma-plugin" % "1.0-SNAPSHOT")
+addSbtPlugin("sbt-doma-plugin" % "sbt-doma-plugin" % "1.0")

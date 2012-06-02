@@ -14,7 +14,7 @@ import plugin.doma.DomainFormatter;
  */
 public class Global extends GlobalSettings {
     public void beforeStart(Application app) {
-        Formatters.register(Email.class, new DomainFormatter<Email>());
-        Formatters.register(Password.class, new DomainFormatter<Password>());
+        Formatters.register(Email.class, DomainFormatter.create(Email.class));
+        Formatters.register(Password.class, DomainFormatter.create(Password.class));
     }
 }
