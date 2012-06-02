@@ -9,7 +9,7 @@ object ApplicationBuild extends Build {
 
   val appDependencies = Seq(
     // Add your project dependencies here,
-    "play2-doma" % "play2-doma" % "1.0-SNAPSHOT"
+    "play2-doma" % "play2-doma" % "1.0"
   )
 
   val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(

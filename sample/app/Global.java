@@ -3,7 +3,7 @@ import doma.user.domain.Password;
 import play.Application;
 import play.GlobalSettings;
 import play.data.format.Formatters;
-import plugin.doma.DomainFieldFormatter;
+import plugin.doma.DomainFormatter;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,7 +14,7 @@ import plugin.doma.DomainFieldFormatter;
  */
 public class Global extends GlobalSettings {
     public void beforeStart(Application app) {
-        Formatters.register(Email.class, new DomainFieldFormatter<Email>());
-        Formatters.register(Password.class, new DomainFieldFormatter<Password>());
+        Formatters.register(Email.class, new DomainFormatter<Email>());
+        Formatters.register(Password.class, new DomainFormatter<Password>());
     }
 }

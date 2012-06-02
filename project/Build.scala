@@ -3,7 +3,7 @@ import Keys._
 
 object ModuleBuild extends Build {
 
-  lazy val buildVersion  =  "1.0-SNAPSHOT"
+  lazy val buildVersion  =  "1.0"
   lazy val playVersion   =  "2.0"
 
   lazy val moduleName    = "play2-doma"
@@ -24,6 +24,8 @@ object ModuleBuild extends Build {
     javacOptions ++= Seq("-encoding", "utf8"),
     libraryDependencies += play,
     crossPaths := false,
-    libraryDependencies += "org.seasar.doma" % "doma" % "1.22.0"
+    libraryDependencies += "org.seasar.doma" % "doma" % "1.22.0",
+    libraryDependencies += "junit" % "junit" % "4.10",
+    libraryDependencies += "com.novocode" % "junit-interface" % "0.8"
   )
 }

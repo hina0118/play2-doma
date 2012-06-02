@@ -6,13 +6,17 @@ import play.mvc.Http.Context;
 import play.mvc.Result;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Administrator
- * Date: 12/05/06
- * Time: 2:39
- * To change this template use File | Settings | File Templ ates.
+ * Domaのトランザクションを適用したアクション
  */
 public class TransactionalAction extends Action<Transactional> {
+
+    /**
+     * アクションを呼び出す
+     *
+     * @param ctx
+     * @return Result
+     * @throws Throwable
+     */
     public Result call(final Context ctx) throws Throwable {
         return DomaPlugin.withTransaction(
                 configuration.configClass(),

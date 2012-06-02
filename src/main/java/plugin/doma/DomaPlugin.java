@@ -1,6 +1,7 @@
 package plugin.doma;
 
 import org.seasar.doma.jdbc.tx.LocalTransaction;
+import org.springframework.util.MethodInvoker;
 import play.Application;
 import play.Plugin;
 import play.data.format.Formatters;
@@ -13,23 +14,29 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Administrator
- * Date: 12/05/01
- * Time: 22:35
- * To change this template use File | Settings | File Templates.
+ * Play2用Domaプラグインクラス
  */
 public class DomaPlugin extends Plugin {
+
+    /** アプリケーション */
     private final Application application;
 
+    /**
+     * コンストラクタ
+     *
+     * @param application アプリケーション
+     */
     public DomaPlugin(Application application) {
         this.application = application;
     }
 
     /**
-     * Run a block of code in a Doma transaction.
+     * 処理にDomaのトランザクションを適用する
      *
-     * @param block Block of code to execute.
+     * @param configClass 設定クラス
+     * @param block トランザクション対象処理ブロック
+     * @return 処理結果
+     * @throws Throwable
      */
     public static <T> T withTransaction(final Class configClass, final F.Function0<T> block) throws Throwable {
         LocalTransaction localTransaction = getLocalTransaction(configClass);
@@ -44,18 +51,21 @@ public class DomaPlugin extends Plugin {
         }
     }
 
+    /**
+     * ローカルトランザクションを取得する
+     *
+     * @param configClass 設定クラス
+     * @return ローカルトランザクション
+     * @throws Throwable
+     */
     private static LocalTransaction getLocalTransaction(Class configClass) throws Throwable {
-        return (LocalTransaction) invokeStatic(configClass, "getLocalTransaction");
-    }
-
-    public static Object invokeStatic(final Class clazz, final String method, final Object... args) throws Throwable {
-        Class[] types = new Class[args.length];
-        for (int i = 0; i < args.length; i++) {
-            types[i] = args[i].getClass();
+        MethodInvoker mi = new MethodInvoker();
+        mi.setStaticMethod(configClass.getName() + ".getLocalTransaction");
+        mi.prepare();
+        if (!mi.isPrepared()) {
+            new RuntimeException("ローカルトランザクションを取得できません。");
         }
-        Method m = clazz.getDeclaredMethod(method, types);
-        m.setAccessible(true);
-        return m.invoke(null, args);
+        return (LocalTransaction) mi.invoke();
     }
 
 }

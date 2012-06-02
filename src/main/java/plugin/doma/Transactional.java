@@ -7,7 +7,7 @@ import java.util.*;
 import java.lang.annotation.*;
 
 /**
- * Wraps the annotated action in an Doma transaction.
+ * アクションにDomaのトランザクションを適用するために使用するアノテーション
  */
 @With(TransactionalAction.class)
 @Target({ElementType.TYPE, ElementType.METHOD})
